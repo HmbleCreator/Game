@@ -3,12 +3,15 @@ import tkinter as tk
 
 # Define the data (same as before)
 data = {
-    "Ape": -1,
+    "Apple": -1,
     "Grape": -1,
-    "sylvy": -1,
-    "pilvy": -1,
-    "WoW": 5,
+    "cucumber": -1,
+    "carrot": -1,
+    "Mango": 5,
 }
+
+# Initialize score
+player_score = 0
 
 # Function to generate a random value and points
 def get_random_value_and_points():
@@ -18,13 +21,14 @@ def get_random_value_and_points():
 
 # Function to start the game
 def start_game():
-    global player_name, current_chance, result_text
+    global player_name, current_chance, result_text, player_score
 
     # Get player name from the input field
     player_name = player_name_entry.get()
 
     # Reset chance and result
     current_chance = 1
+    player_score = 0
     result_text.set("")
 
     # Enable the "Next Chance" button
@@ -35,16 +39,20 @@ def start_game():
 
 # Function to handle button click
 def next_chance():
-    global current_chance
+    global current_chance, player_score
 
     # Check if remaining chances
-    if current_chance == 4:  # Check if current chance is 3 (corrected)
+    if current_chance == 4:  
         next_chance_button.config(state="disabled")
-        result_text.set(f"Thanks for playing, {player_name}!")
+        result_text.set(f"Thanks for playing, {player_name}! You scored {player_score} points.")
         return
 
     # Generate random value and points
     random_value, points = get_random_value_and_points()
+
+        
+    # Update player score
+    player_score += points
 
     # Update result text with current chance and earned points
     result_text.set(f"Hi {player_name}, chance {current_chance}/3: You got {random_value}! You earned {points} points.")
@@ -53,7 +61,7 @@ def next_chance():
 
 # Initialize Tkinter window
 window = tk.Tk()
-window.title("Fruit Point Game")
+window.title("Fruit Frezy!:)")
 
 # Set window size
 window.geometry("400x600")
